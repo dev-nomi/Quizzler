@@ -2,11 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'QuizBrain.dart';
 
-QuizBrain quizBrain =QuizBrain();
+QuizBrain quizBrain = QuizBrain();
 
-void main() {
-  runApp(Quizzler());
-}
+void main() => runApp(Quizzler());
 
 class Quizzler extends StatelessWidget {
   @override
@@ -38,26 +36,6 @@ class QuizPage extends StatefulWidget {
 }
 
 class _QuizPageState extends State<QuizPage> {
-  List<Icon> scoreKeeper = []; //creates an empty list of icons
-  int questionNumber = 0;
-
-  void checkAnswer({bool correctAnswer, bool buttonValue}) {
-    if (correctAnswer == buttonValue) {
-      scoreKeeper.add(
-        Icon(
-          Icons.check,
-          color: Colors.green,
-        ),
-      );
-    } else {
-      scoreKeeper.add(
-        Icon(
-          Icons.close,
-          color: Colors.red,
-        ),
-      );
-    }
-  }//checkAnswer
 
   @override
   Widget build(BuildContext context) {
@@ -71,7 +49,7 @@ class _QuizPageState extends State<QuizPage> {
             padding: const EdgeInsets.all(10.0),
             child: Center(
               child: Text(
-                quizBrain.questionsBank[questionNumber].questionText,
+                quizBrain.getQuestionText(),
                 textAlign: TextAlign.center,
                 style: TextStyle(
                   fontSize: 25.0,
@@ -92,11 +70,10 @@ class _QuizPageState extends State<QuizPage> {
                 ),
                 onPressed: () {
                   setState(() {
-                    checkAnswer(
-                        correctAnswer: quizBrain.questionsBank[questionNumber].questionAnswer,
-                        buttonValue: true
-                    );
-                    questionNumber++;
+                    quizBrain.checkAnswer(
+                        correctAnswer: quizBrain.getQuestionAnswer(),
+                        buttonValue: true);
+                    quizBrain.nextQuestion();
                   });
                 }),
           ),
@@ -112,17 +89,18 @@ class _QuizPageState extends State<QuizPage> {
                 ),
                 onPressed: () {
                   setState(() {
-                    checkAnswer(
-                        correctAnswer: quizBrain.questionsBank[questionNumber].questionAnswer,
-                        buttonValue: false
+                    quizBrain.checkAnswer(
+                      correctAnswer: quizBrain.getQuestionAnswer(),
+                      buttonValue: false,
                     );
-                    questionNumber++;
+                    quizBrain.nextQuestion();
                   });
-                }),
+                }
+                ),
           ),
         ),
         Row(
-          children: scoreKeeper,
+          children: quizBrain.scoreKeeper,
         ),
       ],
     );

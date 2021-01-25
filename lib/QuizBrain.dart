@@ -1,6 +1,9 @@
 import 'Questions.dart';
+import 'package:flutter/material.dart';
 class QuizBrain{
-  List<Questions> questionsBank = [
+  int _questionNumber = 0;
+  List<Icon> scoreKeeper = []; //creates an empty list of icons
+  List<Questions> _questionsBank = [
     Questions('Some cats are actually allergic to humans', true),
     Questions('You can lead a cow down stairs but not up stairs.', false),
     Questions('Approximately one quarter of human bones are in the feet.', true),
@@ -15,4 +18,33 @@ class QuizBrain{
     Questions('Chocolate affects a dog\'s heart and nervous system; a few ounces are enough to kill a small dog.', true),
     Questions('In West Virginia, USA, if you accidentally hit an animal with your car, you are free to take it home to eat.', true),
   ];
-}
+  String getQuestionText(){
+    return _questionsBank[_questionNumber].questionText;
+  }//getQuestionText
+  bool getQuestionAnswer(){
+    return _questionsBank[_questionNumber].questionAnswer;
+  }//getQuestionAnswer
+  void nextQuestion(){
+    if(_questionNumber<_questionsBank.length-1){
+      _questionNumber++;
+    }
+  }
+  void checkAnswer({bool correctAnswer, bool buttonValue}) {
+    if (correctAnswer == buttonValue) {
+      scoreKeeper.add(
+        Icon(
+          Icons.check,
+          color: Colors.green,
+        ),
+      );
+    } else {
+      scoreKeeper.add(
+        Icon(
+          Icons.close,
+          color: Colors.red,
+        ),
+      );
+    }
+  } //checkAnswer
+
+}//QuizBrain
