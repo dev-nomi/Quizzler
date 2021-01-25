@@ -35,7 +35,14 @@ class QuizPage extends StatefulWidget {
 }
 
 class _QuizPageState extends State<QuizPage> {
-  List<Icon> scoreKeeper = [];
+  List<Icon> scoreKeeper = [];//creates an empty list of icons
+  List<String> questions=[
+    'Crocodiles do not have sweat glands?',
+    'Deficiency of Vitamin B17 leads to cancer?',
+    'Does the human nucleus contain 46 pairs of chromosomes?',
+  ];
+  int  questionNumber=0;
+  List<bool> answers=[true,true,false];
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -48,7 +55,7 @@ class _QuizPageState extends State<QuizPage> {
             padding: const EdgeInsets.all(10.0),
             child: Center(
               child: Text(
-                'This is where the question text will go.',
+                questions[questionNumber],
                 textAlign: TextAlign.center,
                 style: TextStyle(
                   fontSize: 25.0,
@@ -69,6 +76,7 @@ class _QuizPageState extends State<QuizPage> {
                 ),
                 onPressed: () {
                   setState(() {
+                    questionNumber++;
                     scoreKeeper.add(
                       Icon(
                         Icons.check,
@@ -90,6 +98,7 @@ class _QuizPageState extends State<QuizPage> {
                 ),
                 onPressed: () {
                   setState(() {
+                    questionNumber++;
                     scoreKeeper.add(
                       Icon(
                         Icons.close,
