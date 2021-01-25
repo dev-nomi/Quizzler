@@ -42,7 +42,11 @@ class _QuizPageState extends State<QuizPage> {
     'Does the human nucleus contain 46 pairs of chromosomes?',
   ];
   int  questionNumber=0;
-  List<bool> answers=[true,true,false];
+  List<bool> answers=[
+    true,
+    true,
+    false
+  ];
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -75,6 +79,12 @@ class _QuizPageState extends State<QuizPage> {
                   style: TextStyle(fontSize: 20.0, color: Colors.white),
                 ),
                 onPressed: () {
+                  bool correctAnswer =answers[questionNumber];
+                  if(correctAnswer==true){
+                    print('user got it right');
+                  }else{
+                    print('user got wrong');
+                  }
                   setState(() {
                     questionNumber++;
                     scoreKeeper.add(
@@ -97,6 +107,12 @@ class _QuizPageState extends State<QuizPage> {
                   style: TextStyle(fontSize: 20.0, color: Colors.white),
                 ),
                 onPressed: () {
+                  bool correctAnswer =answers[questionNumber];
+                  if(correctAnswer==false){
+                    print('user got it right');
+                  }else{
+                    print('user got wrong');
+                  }
                   setState(() {
                     questionNumber++;
                     scoreKeeper.add(
