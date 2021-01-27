@@ -1,7 +1,11 @@
 import 'Questions.dart';
 import 'package:flutter/material.dart';
+import 'package:rflutter_alert/rflutter_alert.dart';
+
 class QuizBrain{
   int _questionNumber = 0;
+  int correct=0;
+  int wrong=0;
   List<Icon> scoreKeeper = []; //creates an empty list of icons
   List<Questions> _questionsBank = [
     Questions('Some cats are actually allergic to humans', true),
@@ -24,12 +28,18 @@ class QuizBrain{
   bool getQuestionAnswer(){
     return _questionsBank[_questionNumber].questionAnswer;
   }//getQuestionAnswer
-  void nextQuestion(){
+  void nextQuestion(BuildContext context){
     if(_questionNumber<_questionsBank.length-1){
       _questionNumber++;
     }
+    else if(_questionNumber==_questionsBank.length-1){
+      Alert(context: context, title: "Game Over", desc: "Correct:$correct Wrong:$wrong").show();
+      _questionNumber=0;
+      this.scoreKeeper.clear();
+    }
   }
-  void checkAnswer({bool correctAnswer, bool buttonValue}) {
+  void checkAnswer(bool buttonValue) {
+    bool correctAnswer=getQuestionAnswer();
     if (correctAnswer == buttonValue) {
       scoreKeeper.add(
         Icon(
@@ -37,6 +47,7 @@ class QuizBrain{
           color: Colors.green,
         ),
       );
+      correct++;
     } else {
       scoreKeeper.add(
         Icon(
@@ -44,6 +55,7 @@ class QuizBrain{
           color: Colors.red,
         ),
       );
+      wrong++;
     }
   } //checkAnswer
 

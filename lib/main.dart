@@ -70,10 +70,8 @@ class _QuizPageState extends State<QuizPage> {
                 ),
                 onPressed: () {
                   setState(() {
-                    quizBrain.checkAnswer(
-                        correctAnswer: quizBrain.getQuestionAnswer(),
-                        buttonValue: true);
-                    quizBrain.nextQuestion();
+                    quizBrain.checkAnswer(true);
+                    quizBrain.nextQuestion(context);
                   });
                 }),
           ),
@@ -89,11 +87,8 @@ class _QuizPageState extends State<QuizPage> {
                 ),
                 onPressed: () {
                   setState(() {
-                    quizBrain.checkAnswer(
-                      correctAnswer: quizBrain.getQuestionAnswer(),
-                      buttonValue: false,
-                    );
-                    quizBrain.nextQuestion();
+                    quizBrain.checkAnswer(false);
+                    quizBrain.nextQuestion(context);
                   });
                 }
                 ),
