@@ -33,7 +33,7 @@ class QuizBrain{
       _questionNumber++;
     }
     else if(_questionNumber==_questionsBank.length-1){
-      Alert(context: context, title: "Game Over", desc: "Correct:$correct Wrong:$wrong").show();
+      Alert(context: context, title: "Game Over", desc: "Correct:$correct  Wrong:$wrong").show();
       _questionNumber=0;
       this.scoreKeeper.clear();
     }
